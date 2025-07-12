@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { provider } from '../api/oauth';
-import { setSpotifyClient } from '../helpers/withSpotifyClient';
-import { showToast, Toast } from '@raycast/api';
+import { useEffect, useState } from "react";
+import { provider } from "../api/oauth";
+import { setSpotifyClient } from "../helpers/withSpotifyClient";
+import { showToast, Toast } from "@raycast/api";
 
 export interface AuthState {
   isAuthenticated: boolean;
@@ -24,9 +24,9 @@ export function useAuthState(): AuthState {
         setIsAuthenticated(true);
         setLastAuthError(null);
       } catch (error) {
-        console.error('Auth check failed:', error);
+        console.error("Auth check failed:", error);
         setIsAuthenticated(false);
-        setLastAuthError(error instanceof Error ? error.message : 'Authentication failed');
+        setLastAuthError(error instanceof Error ? error.message : "Authentication failed");
       } finally {
         setIsInitializing(false);
       }
@@ -39,27 +39,27 @@ export function useAuthState(): AuthState {
     try {
       setIsInitializing(true);
       setLastAuthError(null);
-      
+
       // Force re-authentication
       await setSpotifyClient();
-      
+
       setIsAuthenticated(true);
-      
+
       await showToast({
         style: Toast.Style.Success,
-        title: 'Successfully reconnected to Spotify',
-        message: 'You can now use the extension normally.',
+        title: "Successfully reconnected to Spotify",
+        message: "You can now use the extension normally.",
       });
     } catch (error) {
-      console.error('Re-authentication failed:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Re-authentication failed';
+      console.error("Re-authentication failed:", error);
+      const errorMessage = error instanceof Error ? error.message : "Re-authentication failed";
       setLastAuthError(errorMessage);
       setIsAuthenticated(false);
-      
+
       await showToast({
         style: Toast.Style.Failure,
-        title: 'Failed to reconnect to Spotify',
-        message: 'Please try again or check your internet connection.',
+        title: "Failed to reconnect to Spotify",
+        message: "Please try again or check your internet connection.",
       });
     } finally {
       setIsInitializing(false);
@@ -72,4 +72,4 @@ export function useAuthState(): AuthState {
     lastAuthError,
     reAuthenticate,
   };
-} 
+}

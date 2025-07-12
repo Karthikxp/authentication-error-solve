@@ -11,7 +11,7 @@ export function getError(error: unknown): ErrorObj {
   console.log("getError", error);
   if (error instanceof HttpError) {
     const isAuthError = error.status === 401 || error.status === 403;
-    
+
     if (typeof error.data === "string") {
       try {
         const parsedError = JSON.parse(error.data);
@@ -40,7 +40,7 @@ export function getErrorMessage(error: unknown): string {
   console.log("--- start getErrorMessage ---");
   console.log("error", error);
   console.log("--- end getErrorMessage ---");
-  
+
   if (error instanceof HttpError) {
     // Check for auth errors and provide user-friendly messages
     if (error.status === 401) {
@@ -49,7 +49,7 @@ export function getErrorMessage(error: unknown): string {
     if (error.status === 403) {
       return "Access denied. Please check your Spotify Premium subscription or re-authenticate.";
     }
-    
+
     try {
       const parsedError = JSON.parse(error.data);
       return parsedError.error.message;
