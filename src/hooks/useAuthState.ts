@@ -57,13 +57,11 @@ export function useAuthState(): AuthState {
       setLastAuthError(errorMessage);
       setIsAuthenticated(false);
 
-      
       showFailureToast(error, { title: "Failed to reconnect to Spotify" });
     } finally {
       setIsInitializing(false);
     }
   };
-  
 
   return {
     isAuthenticated,
