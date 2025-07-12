@@ -1,4 +1,4 @@
-import { Action, ActionPanel, Icon, List } from "@raycast/api";
+import { Action, ActionPanel, Icon, List, popToRoot } from "@raycast/api";
 import { exec } from "child_process";
 import { useAuthState } from "../hooks/useAuthState";
 
@@ -59,7 +59,7 @@ export function withAuthenticationError<T extends Record<string, unknown>>(
     if (!isAuthenticated || !checkAuth()) {
       return (
         <List>
-          <AuthenticationError error={lastAuthError || undefined} onRetry={() => window.location.reload()} />
+          <AuthenticationError error={lastAuthError || undefined} onRetry={() => popToRoot()} />
         </List>
       );
     }
